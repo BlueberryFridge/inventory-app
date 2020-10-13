@@ -1,14 +1,40 @@
 const express = require('express');
 const Items = require('../models/items');
 
-// items list
-exports.index = (req, res, next) => {
-    res.render('index', { title: 'Items List' });
+// items list GET
+exports.index_get = (req, res, next) => {
+    Items.find({}, 'name price number_in_stock category')
+         .populate('category')
+         .exec((err, items_list) => {
+            if(err) return next(err);
+             res.render('items_list', { title: 'Items List', items_list });
+         });
+}
+
+// items list POST
+exports.index_post = (req, res, next) => {
+    Items.find({}, 'name price number_in_stock category')
+         .populate('category')
+         .exec( (err, items_list) => {
+            if(err) return next(err);
+            const sortVal = req.body.sortby;
+            const new_list = Object.values(items_list);
+
+            new_list.sort((a, b) => {
+                return (a[sortVal] < b[sortVal]) ? -1 : (a[sortVal] > b[sortVal]) ? 1 : 0; 
+            });
+            res.render('items_list', { title: 'Items Sorted', items_list: new_list });
+         });
 }
 
 // item details 
 exports.item_details = (req, res, next) => {
-    res.send('Item details not implemented');
+    Items.findById(req.params.id)
+         .populate('category')
+         .exec((err, item_found) => {
+             if(err) return next(err);
+             res.render('item_details', { title: item_found.name, item_details: item_found });
+         });
 }
 
 // create item GET

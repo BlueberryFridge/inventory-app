@@ -1,8 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+  font-family: 'Roboto Condensed', sans-serif; }
 
 a {
-  color: #00B7FF; }
+  color: #c4610a; }
+
+th {
+  text-align: center; }
 
 /*# sourceMappingURL=style.css.map */

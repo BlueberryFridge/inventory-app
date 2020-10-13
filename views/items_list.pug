@@ -1,0 +1,32 @@
+extends layout
+
+block content
+
+    h1= title
+
+    .container-fluid
+
+        form(method='POST' action='' id='sort-form' style='float: right; display: inline; margin-bottom: 50px')
+            .row
+                label(for='sort-by') Sort by: 
+                select(name='sortby' id='sorter' class='form-control' style='margin-bottom: 10px')
+                    option(value='item') Item
+                    option(value='price') Price
+                    option(value='number_in_stock' selected='true') Number in Stock
+                    option(value='category') Category
+                button(type='submit').btn.btn-primary Sort
+        
+        table.col-sm-12.table(style='display: inline')
+            tr
+                th ITEM
+                th PRICE (Php)
+                th NUMBER IN STOCK
+                th CATEGORY
+            each item in items_list
+                tr
+                    td
+                        a(href=item.url)= item.name
+                    td(style='text-align: center')= item.price
+                    td(style='text-align: center')= item.number_in_stock
+                    td
+                        a(href=item.category.url)= item.category.name

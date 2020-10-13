@@ -39,10 +39,11 @@ router.get('/:id/update', ItemController.item_update_get);
 router.post('/:id/update', ItemController.item_update_post);
 
 // get item details
-router.get('/:d', ItemController.item_details);
+router.get('/:id', ItemController.item_details);
 
 // get list of items
-router.get('/', ItemController.index);
+router.get('/', ItemController.index_get);
+router.post('/', ItemController.index_post);
 
 
 

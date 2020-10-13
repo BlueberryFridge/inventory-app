@@ -1,5 +1,3 @@
-#! /usr/bin/env node
-
 console.log('This is a script that populates the inventory-app database.');
 
 // get arguments passed on CLI
