@@ -5,17 +5,18 @@ block content
     h1= title
 
     .container-fluid
+        - function selector(value){ return (value === sortVal) ? 'selected' : false }
 
         form(method='POST' action='' id='sort-form' style='float: right; display: inline; margin-bottom: 50px')
             .row
                 label(for='sort-by') Sort by: 
                 select(name='sortby' id='sorter' class='form-control' style='margin-bottom: 10px')
-                    option(value='item') Item
-                    option(value='price') Price
-                    option(value='number_in_stock' selected='true') Number in Stock
-                    option(value='category') Category
+                    option(value='name' selected=selector('name')) Name
+                    option(value='price' selected=selector('price')) Price
+                    option(value='number_in_stock' selected=selector('number_in_stock')) Number in Stock
+                    option(value='category' selected=selector('category')) Category
                 button(type='submit').btn.btn-primary Sort
-        
+
         table.col-sm-12.table(style='display: inline')
             tr
                 th ITEM

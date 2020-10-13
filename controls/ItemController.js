@@ -1,4 +1,5 @@
 const express = require('express');
+const items = require('../models/items');
 const Items = require('../models/items');
 
 // items list GET
@@ -7,7 +8,12 @@ exports.index_get = (req, res, next) => {
          .populate('category')
          .exec((err, items_list) => {
             if(err) return next(err);
-             res.render('items_list', { title: 'Items List', items_list });
+            items_list.sort((a, b) => {
+                const textA = a.name.toUpperCase();
+                const textB = b.name.toUpperCase();
+                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+            })
+             res.render('items_list', { title: 'Items List', items_list, sortVal: 'name' });
          });
 }
 
@@ -17,13 +23,25 @@ exports.index_post = (req, res, next) => {
          .populate('category')
          .exec( (err, items_list) => {
             if(err) return next(err);
-            const sortVal = req.body.sortby;
-            const new_list = Object.values(items_list);
+            else {
+                const sortVal = req.body.sortby;
 
-            new_list.sort((a, b) => {
-                return (a[sortVal] < b[sortVal]) ? -1 : (a[sortVal] > b[sortVal]) ? 1 : 0; 
-            });
-            res.render('items_list', { title: 'Items Sorted', items_list: new_list });
+                items_list.sort((a, b) => {
+                    var textA, textB;
+                    if(sortVal === 'name') {
+                        textA = a[sortVal].toUpperCase();
+                        textB = b[sortVal].toUpperCase();
+                        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+                    }
+                    if(sortVal === 'category') {
+                        textA= a.category.name.toUpperCase();
+                        textB = b.category.name.toUpperCase();
+                        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+                    }
+                    return a[sortVal]-b[sortVal];
+                });
+                res.render('items_list', { title: 'Items List', items_list, sortVal });
+            }
          });
 }
 
