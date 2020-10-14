@@ -8,14 +8,19 @@ html(lang='en')
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js')
-    
+
   body
     #body-container.container-fluid
       #side-menu.col-sm-2
         a(href='/inventory')
           p Items List
+        a(href='/inventory/category')
+          p Categories List
         a(href='/inventory/create')
           p Create Item
+        a(href='/inventory/category/create')
+          p Create Category
+        
     
       #content-container.col-sm-10
         block content

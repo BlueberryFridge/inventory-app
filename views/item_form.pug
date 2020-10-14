@@ -1,0 +1,39 @@
+extends layout
+
+block content
+    h1= title
+
+    hr
+
+    ul
+        if errors!==undefined
+            each error in errors
+                li!= error.msg
+
+
+    form(action='', method='POST', style='padding: 30px 20px')
+        .form-group
+            label(for='name') Item
+            input#name-input.form-control(type='text', name='name', placeholder='Name of item', required='true')
+        .form-group
+            label(for='category') Category
+            select#category-input.form-control(type='select', name='category', required='true')
+                if selectedCategory!==undefined
+                    option(selected disabled) Select Category
+                    each category in categories_list
+                        option(value=category._id)= category.name
+                else
+                    each category in categories_list
+                        option(value=category._id selected=(category.name===selectedCategory ? 'selected' : false ))= category.name
+        .form-group
+            label(for='price') Price (Php)
+            input.form-control(type='text', name='price', placeholder='Place the price here...', required='true')
+        .form-group
+            label(for='number_in_stock') Number in Stock
+            input.form-control(type='text', name='number_in_stock', placeholder='Number of items remaining...', required='true')
+        .form-group
+            label(for='description') Description
+            textArea.form-control(type='textArea', name='description', cols='30', rows='5', style='resize: none', required='true')
+        button.btn.btn-warning(type='submit' style='float: right; background: rgb(67, 130, 55); border: none') Create Item
+            
+    

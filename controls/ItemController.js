@@ -1,6 +1,9 @@
 const express = require('express');
-const items = require('../models/items');
+const async = require('async');
+const { body, validationResult } = require('express-validator');
+
 const Items = require('../models/items');
+const Category = require('../models/category');
 
 // items list GET
 exports.index_get = (req, res, next) => {
@@ -51,19 +54,65 @@ exports.item_details = (req, res, next) => {
          .populate('category')
          .exec((err, item_found) => {
              if(err) return next(err);
+             if(!item_found) {
+                 const err = new Error('Item not found. D:');
+                 return next(err);
+             }
              res.render('item_details', { title: item_found.name, item_details: item_found });
          });
 }
 
 // create item GET
 exports.item_create_get = (req, res, next) => {
-    res.send('Create item GET not implemented');
+    Category.find({})
+            .exec((err, categories_list) => {
+                if(err) return next(err);
+                res.render('item_form', { title: 'Create Item', categories_list });
+            });
 }
 
 // create item POST
-exports.item_create_post = (req, res, next) => {
-    res.send('Create item POST not implemented');
-}
+exports.item_create_post = [
+    // convert category into array
+    (req, res, next) => {
+        if(!(req.body.category instanceof Array)) {
+            if(typeof req.body.category === 'undefined') req.body.category = [];
+            else req.body.category = new Array(req.body.category);
+        }
+    },
+    body('name', 'Name must not be empty.').isLength({ min: 1 }).trim().escape(),
+    body('category.*').escape(),
+    body('price').isNumeric({ min: 0 }).withMessage('Price must be a number of at least 0.').trim().escape(),
+    body('number_in_stock').isInt({ min: 0}).withMessage('Stock must be an integer of at least 0.').trim().escape(),
+    body('description', 'Description must not be empty.').isLength({min: 1}).trim().escape(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        var selectedCategory;
+        const newItem = new Items({
+            name: req.body.name,
+            category: req.body.category,
+            price: req.body.price,
+            number_in_stock: req.body.number_in_stock,
+            description: req.body.description
+        });
+
+        if(!errors.isEmpty()) {
+            Category.find({})
+                    .exec((err, categories_list) => {
+                        if(err) return next(err);
+                        selectedCategory = req.body.category;
+                        res.render('item_form', { title: 'Create Item', categories_list, errors: errors.array(), selectedCategory, newItem });
+                    });
+            return;
+        }
+        else {
+            newItem.save(err => {
+                if(err) next(err);
+                res.redirect(newItem.url);
+            });
+        }
+    }
+];
 
 // delete item GET
 exports.item_delete_get = (req, res, next) => {

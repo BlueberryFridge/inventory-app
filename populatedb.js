@@ -42,7 +42,6 @@ function itemCreate(name, description, category, price, numberInStock, cb) {
     });
     item.save(function(err) {
         if (err) {
-            console.log(`J'étais ici!`, err, price, numberInStock);
             cb(err, null);
             return;
         }
@@ -119,4 +118,5 @@ async.series([ createCategories, createItems ], function(err, results) {
     // all done, disconnect database
     console.log('All done!');
     mongoose.connection.close();
+    console.log('Mongoose connection closed.');
 });
