@@ -79,19 +79,20 @@ exports.item_create_post = [
             if(typeof req.body.category === 'undefined') req.body.category = [];
             else req.body.category = new Array(req.body.category);
         }
+        next();
     },
     body('name', 'Name must not be empty.').isLength({ min: 1 }).trim().escape(),
     body('category.*').escape(),
     body('price').isNumeric({ min: 0 }).withMessage('Price must be a number of at least 0.').trim().escape(),
-    body('number_in_stock').isInt({ min: 0}).withMessage('Stock must be an integer of at least 0.').trim().escape(),
+    body('number_in_stock').isInt({ min: 0}).withMessage('Number in stock must be an integer of at least 0.').trim().escape(),
     body('description', 'Description must not be empty.').isLength({min: 1}).trim().escape(),
     (req, res, next) => {
         const errors = validationResult(req);
         var selectedCategory;
         const newItem = new Items({
             name: req.body.name,
-            category: req.body.category,
             price: req.body.price,
+            category: req.body.category,
             number_in_stock: req.body.number_in_stock,
             description: req.body.description
         });
@@ -100,7 +101,9 @@ exports.item_create_post = [
             Category.find({})
                     .exec((err, categories_list) => {
                         if(err) return next(err);
-                        selectedCategory = req.body.category;
+                        for(var categoryX in categories_list) {
+                            if(categoryX._id === req.body.category) selectedCategory = categoryX.name;
+                        }
                         res.render('item_form', { title: 'Create Item', categories_list, errors: errors.array(), selectedCategory, newItem });
                     });
             return;
