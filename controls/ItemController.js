@@ -16,7 +16,7 @@ exports.index_get = (req, res, next) => {
                 const textB = b.name.toUpperCase();
                 return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
             })
-             res.render('items_list', { title: 'Items List', items_list, sortVal: 'name' });
+             res.render('items_list', { title: 'Items List', items_list, sortVal: 'name', displayCategory: true });
          });
 }
 
@@ -43,7 +43,7 @@ exports.index_post = (req, res, next) => {
                     }
                     return a[sortVal]-b[sortVal];
                 });
-                res.render('items_list', { title: 'Items List', items_list, sortVal });
+                res.render('items_list', { title: 'Items List', items_list, sortVal, displayCategory: true });
             }
          });
 }

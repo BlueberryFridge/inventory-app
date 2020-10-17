@@ -10,13 +10,18 @@
 ::selection {
   background: rgba(67, 130, 55, 0.7); }
 
-#side-menu p {
-  font-size: 15px; }
+#side-menu {
+  padding: 50px; }
+  #side-menu p {
+    font-size: 15px; }
 
 body {
-  padding: 50px;
+  padding: 0;
   font-family: 'Roboto Condensed', sans-serif;
-  background: #fefefe; }
+  background: #efefef; }
+  body #content-container {
+    padding: 50px 20px;
+    background: #fefefe; }
 
 h1 {
   font-size: 3rem;
@@ -34,6 +39,14 @@ dd {
 button {
   font-family: 'Secular One', sans-serif;
   box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.1); }
+
+th {
+  text-align: center; }
+
+.errors-list li {
+  color: rgba(219, 47, 35, 0.6);
+  font-style: italic;
+  list-style: square; }
 
 .popup-delete {
   position: fixed;
@@ -73,12 +86,15 @@ button {
       .popup-delete .window-delete .btn-del-container button {
         width: 50px; }
 
-th {
-  text-align: center; }
-
-.errors-list li {
-  color: rgba(219, 47, 35, 0.6);
-  font-style: italic;
-  list-style: square; }
+#category-box {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  opacity: 0.8; }
+  #category-box:hover {
+    transform: translateX(10px);
+    opacity: 1;
+    transition: all ease 0.5s; }
 
 /*# sourceMappingURL=style.css.map */

@@ -5,31 +5,35 @@ block content
     h1= title
 
     hr
+    if items_list===undefined
+        h List of items is empty. D:
+    else
+        .container-fluid
+            - function selector(value){ return (value === sortVal) ? 'selected' : false }
+            form(method='POST' action='' id='sort-form' style='float: right; display: inline; margin-bottom: 50px')
+                .form-group(style='padding: 5px; height: 38px')
+                    label(for='sort-by') Sort by: 
+                    select(name='sortby' id='sorter' style='margin: 0 5px; border-radius: 5px; border: 1px solid rgba(0, 0, 0, 0.2); padding: 3px')
+                        option(value='name' selected=selector('name')) Name
+                        option(value='price' selected=selector('price')) Price
+                        option(value='number_in_stock' selected=selector('number_in_stock')) Number in Stock
+                        if displayCategory
+                            option(value='category' selected=selector('category')) Category
+                    button.btn.btn-warning(type='submit' style='padding: 3px 6px') Go!
 
-    .container-fluid
-        - function selector(value){ return (value === sortVal) ? 'selected' : false }
-
-        form(method='POST' action='' id='sort-form' style='float: right; display: inline; margin-bottom: 50px')
-            .form-group(style='padding: 5px; height: 38px')
-                label(for='sort-by') Sort by: 
-                select(name='sortby' id='sorter' style='margin: 0 5px; border-radius: 5px; border: 1px solid rgba(0, 0, 0, 0.2); padding: 3px')
-                    option(value='name' selected=selector('name')) Name
-                    option(value='price' selected=selector('price')) Price
-                    option(value='number_in_stock' selected=selector('number_in_stock')) Number in Stock
-                    option(value='category' selected=selector('category')) Category
-                button.btn.btn-warning(type='submit' style='padding: 3px 6px') Go!
-
-        table.col-sm-12.table(style='display: inline')
-            tr
-                th ITEM
-                th PRICE (Php)
-                th NUMBER IN STOCK
-                th CATEGORY
-            each item in items_list
+            table.col-sm-12.table(style='display: inline')
                 tr
-                    td
-                        a(href=item.url)= item.name
-                    td(style='text-align: center')= item.price
-                    td(style='text-align: center')= item.number_in_stock
-                    td
-                        a(href=item.category.url)= item.category.name
+                    th ITEM
+                    th PRICE (Php)
+                    th NUMBER IN STOCK
+                    if displayCategory
+                        th CATEGORY
+                each item in items_list
+                    tr
+                        td
+                            a(href=item.url)= item.name
+                        td(style='text-align: center')= item.price
+                        td(style='text-align: center')= item.number_in_stock
+                        if displayCategory    
+                            td
+                                a(href=item.category.url)= item.category.name

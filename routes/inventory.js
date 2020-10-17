@@ -18,7 +18,8 @@ router.get('/category/:id/update', CategoryController.category_update_get);
 router.post('/category/:id/update', CategoryController.category_update_post);
 
 // get list of items for one category
-router.get('/category/:id', CategoryController.category_items);
+router.get('/category/:id', CategoryController.category_items_get);
+router.post('/category/:id', CategoryController.category_items_post);
 
 // get list of categories
 router.get('/category', CategoryController.category);

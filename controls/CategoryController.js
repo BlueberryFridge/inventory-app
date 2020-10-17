@@ -1,15 +1,61 @@
 const express = require('express');
+const async = require('async');
 const Category = require('../models/category');
+const Items = require('../models/items');
+const { body, validationResult } = require('express-validator');
 
 
 // categories list 
 exports.category = (req, res, next) => {
-    res.send('Category page not implemented');
+    Category.find({}, (err, categories_list) => {
+        if(err) return next(err);
+        categories_list.sort((a, b) => 
+            (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : 0);
+        res.render('categories_list', { title: 'Categories List', categories_list });
+    });
 }
 
-// items list by category
-exports.category_items = (req, res, next) => {
-    res.send('Items list for category not implemented');
+// items list by category GET
+exports.category_items_get = (req, res, next) => {
+    async.parallel({
+        categoryX: callback => Category.findById(req.params.id, 'name').exec(callback),
+        items_list: callback => Items.find({ category: req.params.id }).exec(callback)
+    }, (err, results) => {
+        if(err) return next(err);
+        if(results.categoryX===null) {
+            const err = new Error('Category not found. D:');
+            err.status = 404;
+            return next(err);
+        }
+        results.items_list.sort((a, b) => {
+            return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : 0;
+        });
+        res.render('items_list', { title: results.categoryX.name, items_list: results.items_list, sortVal: 'name', displayCategory: false });
+    });
+}
+
+// items list by category POST
+exports.category_items_post = (req, res, next) => {
+    async.parallel({
+        categoryX: callback => Category.findById(req.params.id, 'name').exec(callback),
+        items_list: callback => Items.find({ category: req.params.id }).exec(callback)
+    }, (err, results) => {
+        if(err) return next(err);
+        if(results.categoryX===null) {
+            const err = new Error('Category not found. D:');
+            err.status = 404;
+            return next(err);
+        }
+        const sortVal = req.body.sortby;
+        results.items_list.sort((a, b) => {
+            if(sortVal==='price' || sortVal==='stock') return a[sortVal]-b[sortVal];
+            else{
+                const textA = a.name.toUpperCase();
+                const textB = b.name.toUpperCase();
+                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;}
+        });
+        res.render('items_list', { title: results.categoryX.name, items_list: results.items_list, sortVal, displayCategory: false});
+    });
 }
 
 // create category GET
