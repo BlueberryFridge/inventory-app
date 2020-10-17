@@ -48,11 +48,12 @@ exports.category_items_post = (req, res, next) => {
         }
         const sortVal = req.body.sortby;
         results.items_list.sort((a, b) => {
-            if(sortVal==='price' || sortVal==='stock') return a[sortVal]-b[sortVal];
-            else{
+            if(sortVal==='name') {
                 const textA = a.name.toUpperCase();
                 const textB = b.name.toUpperCase();
-                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;}
+                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+            }
+            return a[sortVal]-b[sortVal];
         });
         res.render('items_list', { title: results.categoryX.name, items_list: results.items_list, sortVal, displayCategory: false});
     });
