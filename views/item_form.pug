@@ -5,8 +5,6 @@ block content
 
     hr
 
-    p= selectedCategory
-
     ul.errors-list
         if errors!==undefined
             each error in errors
@@ -36,6 +34,6 @@ block content
         .form-group
             label(for='description') Description
             textArea.form-control(type='textArea', name='description', cols='20', rows='5', style='resize: none', required='true') #{newItem===undefined ? '' : newItem.description}
-        button.btn.btn-warning(type='submit' style='float: right; background: rgb(67, 130, 55); border: none') Create Item
+        button.btn.btn-warning(type='submit' style='float: right; border: none') Create Item
             
     

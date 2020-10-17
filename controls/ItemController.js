@@ -4,6 +4,7 @@ const { body, validationResult } = require('express-validator');
 
 const Items = require('../models/items');
 const Category = require('../models/category');
+const category = require('../models/category');
 
 // items list GET
 exports.index_get = (req, res, next) => {
@@ -88,7 +89,7 @@ exports.item_create_post = [
     body('description', 'Description must not be empty.').isLength({min: 1}).trim().escape(),
     (req, res, next) => {
         const errors = validationResult(req);
-        var selectedCategory;
+        var selectedCategory = '';
         const newItem = new Items({
             name: req.body.name,
             price: req.body.price,
@@ -101,9 +102,9 @@ exports.item_create_post = [
             Category.find({})
                     .exec((err, categories_list) => {
                         if(err) return next(err);
-                        for(var categoryX in categories_list) {
-                            if(categoryX._id === req.body.category) selectedCategory = categoryX.name;
-                        }
+                        categories_list.map(category => {
+                            if(String(category._id) === String(newItem.category)) selectedCategory = category.name;
+                        });
                         res.render('item_form', { title: 'Create Item', categories_list, errors: errors.array(), selectedCategory, newItem });
                     });
             return;
@@ -119,12 +120,11 @@ exports.item_create_post = [
 
 // delete item GET
 exports.item_delete_get = (req, res, next) => {
-    res.send('Delete item GET not implemented');
-}
-
-// delete item POST
-exports.item_delete_post = (req, res, next) => {
-    res.send('Delete item POST not implemented');
+    console.log(req.params.id, 'here!');
+    Items.findByIdAndRemove(req.params.id, err => {
+        if(err) return next(err);
+        res.redirect('/inventory');
+    });
 }
 
 // update item GET

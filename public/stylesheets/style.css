@@ -1,5 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Secular+One&display=swap");
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); }
+  100% {
+    opacity: 1; } }
+
 ::selection {
   background: rgba(67, 130, 55, 0.7); }
 
@@ -21,6 +28,48 @@ a {
 dd {
   padding: 5px 10px;
   text-align: justify; }
+
+button {
+  font-family: 'Secular One', sans-serif;
+  box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.1); }
+
+.popup-delete {
+  position: fixed;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.3);
+  width: 100vw;
+  height: 100vh; }
+  .popup-delete .window-delete {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 200px;
+    height: 140px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1);
+    background: #efefef;
+    animation: slide-up 0.3s forwards ease-in; }
+    .popup-delete .window-delete .btn-del-container {
+      padding: 0 20px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%; }
+      .popup-delete .window-delete .btn-del-container .btn-primary {
+        background: rgba(67, 130, 55, 0.9); }
+        .popup-delete .window-delete .btn-del-container .btn-primary:hover {
+          background: #438237; }
+      .popup-delete .window-delete .btn-del-container button {
+        width: 50px; }
 
 th {
   text-align: center; }
