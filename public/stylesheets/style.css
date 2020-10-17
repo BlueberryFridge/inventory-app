@@ -15,7 +15,8 @@
 
 body {
   padding: 50px;
-  font-family: 'Roboto Condensed', sans-serif; }
+  font-family: 'Roboto Condensed', sans-serif;
+  background: #fefefe; }
 
 h1 {
   font-size: 3rem;
@@ -27,7 +28,8 @@ a {
 
 dd {
   padding: 5px 10px;
-  text-align: justify; }
+  text-align: justify;
+  white-space: pre-wrap; }
 
 button {
   font-family: 'Secular One', sans-serif;
@@ -75,7 +77,7 @@ th {
   text-align: center; }
 
 .errors-list li {
-  color: red;
+  color: rgba(219, 47, 35, 0.6);
   font-style: italic;
   list-style: square; }
 

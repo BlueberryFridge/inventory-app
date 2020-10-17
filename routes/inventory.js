@@ -32,7 +32,6 @@ router.post('/create', ItemController.item_create_post);
 
 // delete item
 router.get('/:id/delete', ItemController.item_delete_get);
-router.post('/:id/delete', ItemController.item_delete_post);
 
 // update item
 router.get('/:id/update', ItemController.item_update_get);
