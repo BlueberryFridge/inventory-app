@@ -21,7 +21,8 @@ body {
   background: #efefef; }
   body #content-container {
     padding: 50px 20px;
-    background: #fefefe; }
+    background: #fefefe;
+    min-height: 100vh; }
 
 h1 {
   font-size: 3rem;
@@ -87,12 +88,14 @@ th {
         width: 50px; }
 
 #category-box {
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(0, 0, 0, 0.3);
   border-radius: 5px;
   box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.1);
   padding: 10px;
   opacity: 0.8; }
   #category-box:hover {
+    background: rgba(214, 133, 34, 0.2);
+    color: #d68522;
     transform: translateX(10px);
     opacity: 1;
     transition: all ease 0.5s; }

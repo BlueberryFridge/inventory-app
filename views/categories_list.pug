@@ -2,7 +2,7 @@ extends layout
 
 block content
     
-    h1= title
+    h1= title.toUpperCase()
 
     hr(style='margin: 35px 0')
 
@@ -10,8 +10,7 @@ block content
         h Categories list is empty. D:
     else
         each category in categories_list
-            a(href=category.url style='text-decoration: none; color: rgb(214, 133, 34)')
+            a(href=category.url style='text-decoration: none')
                 dl#category-box
                     dt= category.name
-                    hr(style='margin: 5px')
                     dd(style='color: black')= category.description
