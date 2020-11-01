@@ -11,7 +11,7 @@ block content
         .container-fluid
             - function selector(value){ return (value === sortVal) ? 'selected' : false }
             form(method='POST' action='' id='sort-form' style='float: right; display: inline; margin-bottom: 50px')
-                .form-group(style='padding: 5px; height: 38px')
+                .form-row
                     label(for='sort-by') Sort by: 
                     select(name='sortby' id='sorter' style='margin: 0 5px; border-radius: 5px; border: 1px solid rgba(0, 0, 0, 0.2); padding: 3px')
                         option(value='name' selected=selector('name')) Name

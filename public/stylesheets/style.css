@@ -10,19 +10,30 @@
 ::selection {
   background: rgba(67, 130, 55, 0.7); }
 
-#side-menu {
-  padding: 50px; }
-  #side-menu p {
-    font-size: 15px; }
+.wrapper {
+  display: flex;
+  align-items: stretch;
+  width: 100%; }
 
-body {
-  padding: 0;
-  font-family: 'Roboto Condensed', sans-serif;
-  background: #efefef; }
-  body #content-container {
-    padding: 50px 20px;
-    background: #fefefe;
-    min-height: 100vh; }
+#menuBtn {
+  background: none;
+  border: none;
+  box-shadow: none;
+  position: fixed;
+  z-index: 10; }
+
+#sideMenu {
+  background: #efefef;
+  transition: all ease 300ms;
+  width: 250px;
+  min-height: 100vh; }
+
+#sideMenu.active {
+  margin-left: -250px; }
+
+#content-container {
+  background: #fefefe;
+  min-height: 100vh; }
 
 h1 {
   font-size: 3rem;
@@ -48,44 +59,6 @@ th {
   color: rgba(219, 47, 35, 0.6);
   font-style: italic;
   list-style: square; }
-
-.popup-delete {
-  position: fixed;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  background: rgba(0, 0, 0, 0.3);
-  width: 100vw;
-  height: 100vh; }
-  .popup-delete .window-delete {
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    width: 200px;
-    height: 140px;
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1);
-    background: #efefef;
-    animation: slide-up 0.3s forwards ease-in; }
-    .popup-delete .window-delete .btn-del-container {
-      padding: 0 20px;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      width: 100%; }
-      .popup-delete .window-delete .btn-del-container .btn-primary {
-        background: rgba(67, 130, 55, 0.9); }
-        .popup-delete .window-delete .btn-del-container .btn-primary:hover {
-          background: #438237; }
-      .popup-delete .window-delete .btn-del-container button {
-        width: 50px; }
 
 #category-box {
   border: 2px solid rgba(0, 0, 0, 0.3);
