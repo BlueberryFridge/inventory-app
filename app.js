@@ -11,6 +11,8 @@ var inventoryRouter = require('./routes/inventory');
 
 var app = express();
 
+require('dotenv').config();
+
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
