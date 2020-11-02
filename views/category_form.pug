@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1= title.toUpperCase()
+
+    hr
+
+    ul.errors-list
+        if errors!==undefined
+            each error in errors
+                li!= error.msg
+
+    form(action='' method='POST')
+        .form-group
+            label(for='catName') Name
+            input#catName.form-control(type='text', name='catName', placeholder='Name of category', required='true', value=(catName===undefined ? '' : catName))
+        
+        .form-group
+            label(for='description') Description
+            textarea#catDesc.form-control(type='textarea', rows='5' name='catDesc' required='true' style='resize: none')= catDesc===undefined ? '' : catDesc
+
+        button.btn.btn-warning.mt-3(type='submit' style='float: right; border: none')= title

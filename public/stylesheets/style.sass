@@ -29,8 +29,10 @@
 #sideMenu
   background: #efefef
   transition: all ease 300ms
-  width: 250px
+  min-width: 250px
+  max-width: 250px
   min-height: 100vh
+  z-index: 9
 
 #sideMenu.active
   margin-left: -250px
@@ -38,6 +40,7 @@
 #content-container
   background: #fefefe
   min-height: 100vh
+  
     
 h1
   font-size: 3rem
@@ -52,7 +55,7 @@ dd
   text-align: justify
   white-space: pre-wrap
 
-button
+.btn
   font-family: 'Secular One', sans-serif
   box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.1)   
 

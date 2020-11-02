@@ -6,7 +6,7 @@ block content
 
     hr(style='margin: 35px 0')
 
-    if categories_list===undefined
+    if !categories_list.length
         h Categories list is empty. D:
     else
         each category in categories_list

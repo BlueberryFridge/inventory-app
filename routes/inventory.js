@@ -11,7 +11,6 @@ router.post('/category/create', CategoryController.category_create_post);
 
 // delete category
 router.get('/category/:id/delete', CategoryController.category_delete_get);
-router.post('/category/:id/delete', CategoryController.category_delete_post);
 
 // update category
 router.get('/category/:id/update', CategoryController.category_update_get);

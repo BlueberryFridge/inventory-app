@@ -18,7 +18,8 @@ html(lang='en')
       script.
         -$(document).ready(() => {
             let isMenuOpen = true;
-            $('#deleteButton').click(() => $('#deleteModal').modal('toggle'));
+            $('#deleteButton').on('click', () => $('#deleteModal').modal('toggle'));
+            $('#deleteCatBtn').on('click', () => $('#deleteCatModal').modal('toggle'));
             $('#menuBtn').click(() => {
               $('#sideMenu').toggleClass('active');
             })
@@ -39,6 +40,6 @@ html(lang='en')
               a(href='/inventory/create') Create Item
             li
               a(href='/inventory/category/create') Create Category
-          
+        
         #content-container.col.p-5
           block content
